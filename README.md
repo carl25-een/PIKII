@@ -28,7 +28,7 @@ Every step writes a row to `parcel_events`, and the SMS messages (Swahili and En
    supabase link --project-ref <your-project-ref>
    supabase db push
    ```
-3. Run `supabase/seed.sql` once in the SQL editor. **The agent points in it are examples**: replace them with the real agents you sign up, and set `tracking_base_url` in the `settings` table to where the web build is hosted, ending in `/t/`.
+3. Run `supabase/seed.sql` once in the SQL editor. **The agent points in it are examples**: replace them with the real agents you sign up, `tracking_base_url` in the `settings` table points at the GitHub Pages tracking page; change it if you host the web build elsewhere.
 4. Turn off public sign-ups (Authentication > Providers > Email > disable "Allow new users to sign up"). Accounts are created by Pikii staff only.
 
 ### Accounts
@@ -72,7 +72,9 @@ npx eas-cli@latest build --platform android --profile preview
 
 When it finishes, EAS gives a link and QR code; open it on the phone to download and install the APK. The camera scanner needs this build: Expo Go cannot scan.
 
-The customer tracking page is part of the web build (`npx expo export --platform web`). Host the `dist/` folder on any static host that rewrites unknown paths to the matching route, or use EAS Hosting.
+### Web version
+
+Every push to `main` publishes the web version to GitHub Pages at https://carl25-een.github.io/PIKII/ (workflow: `.github/workflows/deploy-web.yml`). It has the same sign-in and screens as the Android app, minus camera scanning (codes are typed instead), and serves the customer tracking links (`/PIKII/t/<token>`). One-time setup: repository Settings > Pages > Source: **GitHub Actions**.
 
 ## Checks
 

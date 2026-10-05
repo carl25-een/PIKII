@@ -2,7 +2,7 @@
 
 insert into public.settings (key, value) values
   ('min_parcels_per_run', '15'),
-  ('tracking_base_url', 'https://CHANGE-ME.example/t/');
+  ('tracking_base_url', 'https://carl25-een.github.io/PIKII/t/');
 
 insert into public.zone_fees (zone, fee_tzs) values
   ('near', 2500),
