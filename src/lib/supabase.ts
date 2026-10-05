@@ -30,6 +30,7 @@ export function errorText(error: unknown): string {
   if (error && typeof error === 'object') {
     const e = error as { hint?: string; message?: string };
     if (e.hint) return e.hint;
+    if (e.message && /Failed to fetch|Network request failed/i.test(e.message)) return "Can't reach Pikii. Check your internet connection and try again.";
     if (e.message === 'Invalid login credentials') return 'That phone number and PIN do not match. Check them and try again.';
     if (e.message) return e.message;
   }
