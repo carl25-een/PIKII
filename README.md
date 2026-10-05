@@ -58,11 +58,19 @@ Then schedule it every minute (Integrations > Cron in the Supabase dashboard, ca
 
 ```sh
 npm install
-cp .env.example .env.local   # fill in the project URL and anon key
 npx expo start
 ```
 
-The camera scanner needs a development build rather than Expo Go: `npx eas-cli@latest build --profile development --platform android`. For the pilot, build an installable APK with `npx eas-cli@latest build --platform android --profile preview` (set up profiles with `npx eas-cli@latest build:configure`).
+`.env` already points at the Pikii Supabase project with its publishable key, which is safe to ship in the app. To use a different project, put its values in `.env.local`, which overrides `.env`.
+
+To install on Android phones, build an APK in the cloud (needs a free expo.dev account):
+
+```sh
+npx eas-cli@latest login
+npx eas-cli@latest build --platform android --profile preview
+```
+
+When it finishes, EAS gives a link and QR code; open it on the phone to download and install the APK. The camera scanner needs this build: Expo Go cannot scan.
 
 The customer tracking page is part of the web build (`npx expo export --platform web`). Host the `dist/` folder on any static host that rewrites unknown paths to the matching route, or use EAS Hosting.
 
